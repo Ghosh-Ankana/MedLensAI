@@ -1,0 +1,95 @@
+<head>
+	<link href="../static/style.css" rel="stylesheet" type = 'text/css'>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+
+<body>
+	<div id='nav_bar'>
+		<div id='title'>
+			<img src='https://user26015.na.imgto.link/public/20260821/screen-shot-2026-08-21-at-5-32-03-pm.avif'>
+
+
+		</div>
+		<div id='pages'>
+			<a href="{{ url_for('home') }}" class="page_link">Home</a>
+			<a href="{{ url_for('health_knowledge') }}" class="page_link">Health Knowledge</a>
+			<a href="{{ url_for('find_care') }}" class="page_link_active">Finding Care</a>
+			<a href="{{ url_for('about_model') }}" class="page_link">About The Model</a>
+			<a href="{{ url_for('about_me') }}" class = 'page_link'> About Me </a>
+		</div>
+	</div>
+
+
+	<section class="banner4">
+
+    <div class="text4">
+        <h1>Finding Care</h1>
+        
+    </div>
+
+</section>
+	<h4 style="text-align: center; font-size: 24px; font-weight: 500;">Search your zip code in the GPS underneth to find sutible care near you. You can also click on the dropdowns for more contact information.</h4>
+
+	<div class ='searchbox'>
+		<input style="width: 500px;"type='text' id='usertyped' class='search_field' placeholder='Enter you city, state: EX: Wilmington, North Carolina' onkeypress="if(event.key==='Enter') searchHos()" required>
+		<button type='button' class='search-btn' onclick='searchHos()'>Find Hospitals</button>
+
+
+	</div>
+	<div id='map' style="height:500px; margin-top:25px;"></div>
+
+
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+	<script>
+		let map = L.map('map').setView([29.6, -87.6], 4)
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+		function searchHos(){
+			let user_in = document.getElementById('usertyped').value.trim()
+			if(!user_in){
+				alert('Please type in your city name')
+				return
+			}
+
+			const query = encodeURIComponent(user_in + ' hospital')
+			fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
+
+			.then(response => response.json())
+			.then(data =>{
+				if (data.length === 0){
+					alert('No hospitals found')
+					return
+				}
+
+				map.eachLayer(layer => {
+					if (layer instanceof L.Marker){
+						map.removeLayer(layer)
+					}
+				})
+
+				const hospital = data[0]
+
+				map.setView([hospital.lat, hospital.lon], 13)
+
+				data.forEach(place => {
+					const marker = L.marker([place.lat, place.lon]).addTo(map)
+					marker.bindPopup(`
+                        <strong>${place.display_name}</strong>
+                    `)
+				})
+
+
+
+
+			}).catch(error => {
+				console.log(error)
+				alert('Map is not avalible')
+			})
+		}
+	</script>
+
+
+</body>

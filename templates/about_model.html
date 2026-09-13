@@ -1,0 +1,82 @@
+<head>
+	<link href="../static/style.css" rel="stylesheet" type = 'text/css'>
+</head>
+
+<body>
+	<div id='nav_bar'>
+		<div id='title'>
+			<img src='https://user26015.na.imgto.link/public/20260821/screen-shot-2026-08-21-at-5-32-03-pm.avif'>
+
+
+		</div>
+		<div id='pages'>
+			<a href="{{ url_for('home') }}" class="page_link">Home</a>
+			<a href="{{ url_for('health_knowledge') }}" class="page_link">Health Knowledge</a>
+			<a href="{{ url_for('find_care') }}" class="page_link">Finding Care</a>
+			<a href="{{ url_for('about_model') }}" class="page_link_active">About The Model</a>
+			<a href="{{ url_for('about_me') }}" class = 'page_link'> About Me </a>
+		</div>
+	</div>
+
+
+	<section class="banner3">
+
+    <div class="text3">
+        <h1>About This Model</h1>
+        
+    </div>
+
+</section>
+	<h4 style="text-align: center; font-size: 24px; font-weight: 500;">This model is called XGBoost, and it uses decision making trees to make its predictions. Remember, the ML model’s predictions are not to be used as an official diagnosis.</h4>
+
+	<div class= 'tabs'>
+		<ul>
+			<details>
+				<summary>How The Model Works</summary>
+				<div>XGBoost works by building lots of sequential decision trees. The next tree targets and corrects the errors of the previous trees.</div>
+			</details>
+
+			<details>
+				<summary>The Dataset</summary>
+				<div>The dataset is retrieved from Kaggle. As a quick summary, the dataset contains 773 unique diseases, 377 symptoms, and about 246,000 rows. 
+
+For this project’s purpose, I have filtered out the diseases that occur less than 100 times. This group of “rare” diseases are removed because they can make the model memorize those symptoms rather than learning the patterns. When you do not have a sufficient amount of data for one disease, the model memorizes instead of learning, which then reduces the chance of it being to detect the disease at all. Therefore, to get a more reliable accuracy score, I removed those diseases. 
+
+In summary, that means that this model cannot predict all diseases, but rather just the ones it was trained on.
+Link: https://www.kaggle.com/datasets/dhivyeshrk/diseases-and-symptoms-dataset
+</div>
+			</details>
+
+			<details>
+				<summary>The Model's Performance</summary>
+				<div>text</div>
+			</details>
+			<details>
+				<summary>Why This Model?</summary>
+				<div>Previously in this project, I have compared CatBoost, LightGBM, and XGBoost. With these three models, I tested time, accuracy, and robustness. In the end, XGBoost had the best balance between the three factors, which is why I chose this model.
+
+In general, Gradient Boosting Machine Learning Models, like CatBoost, LightGBM, and XGBoost, are all good at predicting disease based on symptoms because the models connect the dots between different symptoms, learn from past “misdiagnosed” patients, relatively handles missing clues easier, and finally handles yes/no data perfectly, which is exactly how our dataset is set up.
+</div>
+			</details>
+			<details>
+				<summary>Limitations</summary>
+				<div>XGBoost has a complex way of giving predictions, making it hard to explain why a patient got a certain prediction. That is what the How This Model Works tab in this page is for!
+
+Because XGBoost only looks at the relationships between symptoms, it cannot relate symptoms to human biology in this case.
+
+Not all the diseases in the world are represented in the dataset that XGBoost uses, thus not all the disease predictions are possible. Also, this model is not trained on specific demographics, so it may be inaccurate for certain demographic groups. 
+
+WHY NOT USE A NEURAL NETWORK?: While at first, a neural network seems to be better for predicting diseases based on yes/no symptoms, it is actually not.
+
+They need massive amounts of training data because of how they are built, they struggle with missing information, and it is harder for users to see how a certain prediction was made because the neural network decides based on billions of mathematical connections. 
+
+In these cases, XGBoost outperforms a neural network model in terms of amount of training data, missing information, and explainability.
+
+In summary, XGBoost is being used for making the predictions in this website, but it is still only a machine learning model and has many limitations. Thus, it should NOT be used for medical diagnoses and should not replace advice from a qualified healthcare professional.
+
+</div>
+			</details>
+		</ul>
+	</div>
+
+</body>

@@ -1,0 +1,222 @@
+#nav_bar{
+    background:white;
+    margin-left: -10px;
+    margin-top: -10px;
+    width: 90vw;
+    height: 60px;
+    padding-left: 10vw;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+
+}
+
+#title img {
+
+   width: 250px;
+   height: 50px;
+   padding-left: 10px;
+
+}
+
+.page_link_active{
+    color: #1E3A8A;
+    font-size: 17px;
+}
+
+.page_link{
+  color: black; 
+  font-size: 17px; 
+}
+
+#pages{
+    background-color: white;
+    width: 45vw;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+
+}
+
+
+p {
+    color:#F59E0B;
+    font-size:18;
+}
+
+.banner {
+    height: 360px;
+    width: 100vw;
+
+    background-image: url("https://cdn.phototourl.com/free/2026-08-04-ee70c01f-55c2-429f-ad0f-c76c12a957c9.png");
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+}
+
+
+.text {
+    margin-left: 200px;
+    width: 900px;
+    color:#4A90E2;
+    font-size: 50px;
+    transform: translateY(-20px);
+
+}
+
+.banner2 {
+    height: 360px;
+    width: 100vw;
+
+    background-image: url("https://cdn.phototourl.com/free/2026-08-04-0da574cc-293d-415b-b4f1-c7c992ed3ec8.png");
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+}
+
+
+.text2 {
+    margin-left: 150px;
+    width: 900px;
+    color:#4A90E2;
+    font-size: 50px;
+    transform: translateY(-20px);
+}
+
+.banner3 {
+    height: 360px;
+    width: 100vw;
+
+    background-image: url("https://cdn.phototourl.com/free/2026-08-04-20007cde-d31b-46a0-83c7-9b89a68d8f6b.png");
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+}
+
+
+.text3 {
+    margin-left: 200px;
+    width: 900px;
+    color:#4A90E2;
+    font-size: 50px;
+    transform: translateY(-20px);
+}
+
+.banner4 {
+    height: 360px;
+    width: 100vw;
+
+    background-image: url("https://cdn.phototourl.com/free/2026-08-05-c223c4a4-fb10-4558-bb56-f2e5160fbb2e.png");
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+}
+
+
+.text4 {
+    margin-left: 200px;
+    width: 900px;
+    color:#4A90E2;
+    font-size: 50px;
+    transform: translateY(-20px);
+}
+
+.checkbox-container {
+display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+width: 400px;
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+#form {
+    width: 400px;
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+#form .checkbox-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    justify-items: center;
+}
+
+
+.button {
+    display: flex;
+    justify-content: center;
+}
+
+
+.predict_button {
+	width:600px;
+    margin: 60px auto 0; 
+    padding: 10px 50px; 
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    background-color:#4A90E2;
+    color:#FFFFFF;
+    transform: translateY(-20px);
+}
+
+body {
+    background-color: #F8FAFC;
+}
+
+details {
+    padding: 20px;
+    border-radius: 16px;
+    background: #F8FAFC;
+}
+
+summary {
+    font-size: 28px;      
+    font-weight: 700;
+    color: #1E3A8A;
+}
+
+details div {
+    margin-top: 15px;      
+    font-size: 20px;
+    line-height: 1.7;
+    color: #64748B;
+}
+
+ul {
+    padding-left:0;
+    margin:0;
+}
+
+
+
+.vt {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #334155;
+}
+
+.vp {
+    float: right;
+    width: 300px;
+    margin: 10px 0 20px 40px;
+    opacity: 0.9;
+    border-radius: 20px;
+}
