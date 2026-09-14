@@ -9,13 +9,15 @@ import xgboost as xgb
 
 import shap
 
+import gc #garbage collection - use less memory
 
 
 app = Flask(__name__)
 
 model = xgb.XGBClassifier()
 model.load_model('model.json')
-explainer = shap.TreeExplainer(model)
+#moved this inside makePrediction() to deploy with less memory
+#explainer = shap.TreeExplainer(model)
 
 def preprocess(symptom_labels, user_symptoms):
 	user_data = np.zeros(377, dtype=np.float64)
@@ -34,6 +36,10 @@ def makePrediction(symptom_labels, user_data, user_input, label_encoder):
 	max_prob_index = np.argmax(probabilities, axis=1)
 	predicted_label = label_encoder.inverse_transform(max_prob_index)[0]
 	confidence = np.max(probabilities) * 100
+
+	explainer = shap.TreeExplainer(model)
+    #shap_values = explainer(input_data)
+	
 	shap_values = explainer.shap_values(user_data)[0][0]
 
 	si = np.argsort(probabilities[0])
@@ -71,6 +77,10 @@ def makePrediction(symptom_labels, user_data, user_input, label_encoder):
 			contributing_neg_symptoms2.append(symptom2)
 		shap_values2[max_sv_index] = -np.inf
 
+	#use less memory
+	del explainer
+	del shap_values
+	gc.collect() 
 
 	return {'Most LikelyPrediction': (predicted_label, confidence), 
 	'Contributing Positive Symptoms': contributing_pos_symptoms, 
