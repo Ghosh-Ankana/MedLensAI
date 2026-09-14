@@ -7,7 +7,7 @@ import numpy as np
 
 import xgboost as xgb
 
-import shap
+#import shap
 
 import gc #garbage collection - use less memory
 
@@ -33,53 +33,56 @@ def preprocess(symptom_labels, user_symptoms):
 
 def makePrediction(symptom_labels, user_data, user_input, label_encoder):
 	probabilities = model.predict_proba(user_data)
-	max_prob_index = np.argmax(probabilities, axis=1)
-	predicted_label = label_encoder.inverse_transform(max_prob_index)[0]
-	confidence = np.max(probabilities) * 100
+	max_prob_index = np.argmax(probabilities, axis=1)[0]
+	predicted_label = label_encoder.inverse_transform([max_prob_index])[0]
+	confidence = probabilities[0, max_prob_index] * 100
 
-	explainer = shap.TreeExplainer(model)
-    #shap_values = explainer(input_data)
-	
-	shap_values = explainer.shap_values(user_data)[0][0]
-
+	#sort by most likely
 	si = np.argsort(probabilities[0])
 	second_prob_index = si[-2]
 	predicted_label2 = label_encoder.inverse_transform([second_prob_index])[0]
 	confidence2 = probabilities[0, second_prob_index] * 100
-	all_shap = explainer.shap_values(user_data)
-	shap_values2 = all_shap[0, :, second_prob_index]
 
 	least_index = si[0]
 	predicted_label3 = label_encoder.inverse_transform([least_index])[0]
 	confidence3 = probabilities[0, least_index] * 100
 
+	#replacing SHAP:
+	#calculate individual feature contributions:
+	data = xgb.DMatrix(user_data, feature_names=symptom_labels)
+	booster = model.get_booster()
+	feature_contributions = booster.predict(data, pred_contribs=True)
+
+	first_pred_values = feature_contributions[0, max_prob_index, :-1].copy()
+	second_pred_values = feature_contributions[0, second_prob_index, :-1].copy()
+
 	
-	print(shap_values)
+	#print(shap_values)
 	contributing_pos_symptoms = []
 	contributing_neg_symptoms = []
 	for x in range(5):
-		max_sv_index = np.argmax(shap_values)
+		max_sv_index = np.argmax(first_pred_values)
 		symptom = symptom_labels[max_sv_index]
 		if symptom in user_input:
 			contributing_pos_symptoms.append(symptom)
 		else:
 			contributing_neg_symptoms.append(symptom)
-		shap_values[max_sv_index] = -np.inf
+		first_pred_values[max_sv_index] = -np.inf
 	
 	contributing_pos_symptoms2 = []
 	contributing_neg_symptoms2 = []
 	for x in range(5):
-		max_sv_index = np.argmax(shap_values2)
+		max_sv_index = np.argmax(second_pred_values)
 		symptom2 = symptom_labels[max_sv_index]
 		if symptom2 in user_input:
 			contributing_pos_symptoms2.append(symptom2)
 		else:
 			contributing_neg_symptoms2.append(symptom2)
-		shap_values2[max_sv_index] = -np.inf
+		second_pred_values[max_sv_index] = -np.inf
 
-	#use less memory
-	del explainer
-	del shap_values
+	#use less memory 
+	del data
+	del feature_contributions
 	gc.collect() 
 
 	return {'Most LikelyPrediction': (predicted_label, confidence), 
