@@ -5,7 +5,7 @@
 <body>
 	<div id='nav_bar'>
 		<div id='title'>
-			<img src='https://user26015.na.imgto.link/public/20260821/screen-shot-2026-08-21-at-5-32-03-pm.avif'>
+			<img src='https://cdn.phototourl.com/free/2026-09-19-66e34d60-9451-4a42-8db6-56d83421b2d1.png'>
 
 
 		</div>
@@ -28,6 +28,9 @@
     </div>
 
 </section>
+	<h4 style="text-align: center; font-size: 24px; font-weight: 700;">Welcome to SymPredAl.</h4>
+	<h4 style="text-align: center; font-size: 24px; font-weight: 500;">
+An educational Al platform designed to democratize health knowledge by transforming complex symptom data into understandable, transparent, and actionable learning experiences.</h4>
 	<h4 style="text-align: center; font-size: 24px; font-weight: 500;">Select or search for the symptoms you are experiencing. When you have finished, click Analyze Symptoms. The more accurate your input, the more accurate the results. Our machine learning model analyzes patterns among symptoms to identify possible conditions.</h4>
 
 <div style="text-align:center;">
@@ -66,17 +69,17 @@
 	<div id='results'>
 
 		<h2 id= 'main-prediction' style="font-size: 28px;font-weight: 700;color: #1E3A8A;">Most Likely Prediction: {{results['Most LikelyPrediction'][0].capitalize()}}</h2>
-		<div style="font-size:20; line-height: 1.7">{{results['Most LikelyPrediction'][1]}}% Confidence</div>
-		<div style="font-weight: bold; font-size:20; line-height: 1.7">Contributing Symptoms to This Prediction:</div>
+		<div style="font-size:20; line-height: 2">{{results['Most LikelyPrediction'][1]}}% Confidence</div>
+		<div style="font-weight: bold; font-size:20; line-height: 2">Contributing Symptoms to This Prediction:</div>
 		<div>{% for x in results['Contributing Positive Symptoms'] %}
-        <div style="font-size:20; line-height: 1.7">{{ x }}</div>
+        <div style="font-size:20; line-height: 2">{{ x.capitalize() }}</div>
     	{% endfor %}</div>
 
-    	<div style="font-weight: bold; font-size:20; line-height: 1.7">Non-Contributing Symptoms to This Prediction:</div>
+    	<div style="font-weight: bold; font-size:20; line-height: 2">Non-Contributing Symptoms to This Prediction:</div>
 		<div>{% for x in results['CNS'] %}
-        <div style="font-size:20; line-height: 1.7">{{ x }}</div>
+        <div style="font-size:20; line-height: 2">{{ x.capitalize() }}</div>
     	{% endfor %}</div>
-    	<div style="font-size:20; line-height: 4"> </div>
+    	<div > </div>
     	<p>Contributing Symptoms are the symptoms that were checked off and align with the prediction. Non-Contributing Symptoms are symptoms that do not align with the prediction.</p>
 
 		<ul>
@@ -86,12 +89,12 @@
 				<div style="font-size:20; line-height: 1.7">{{results['second prediction'][1]}}% Confidence</div>
 		<div style="font-weight: bold; font-size:20; line-height: 1.7">Contributing Symptoms to This Prediction:</div>
 		<div>{% for x in results['CPS2'] %}
-        <div style="font-size:20; line-height: 1.7">{{ x }}</div>
+        <div style="font-size:20; line-height: 1.7">{{ x.capitalize() }}</div>
     	{% endfor %}</div>
 
     	<div style="font-weight: bold; font-size:20; line-height: 1.7">Non-Contributing Symptoms to This Prediction:</div>
 		<div>{% for x in results['CNS2'] %}
-        <div style="font-size:20; line-height: 1.7">{{ x }}</div>
+        <div style="font-size:20; line-height: 1.7">{{ x.capitalize() }}</div>
     	{% endfor %}</div>
     	<p>Contributing Symptoms are the symptoms that were checked off and align with the prediction. Non-Contributing Symptoms are symptoms that do not align with the prediction.</p>
 
